@@ -10,6 +10,6 @@ export const RootContainer = styled.div`
 
 export const RootContent = styled.div`
     background: ${(props) => props.theme['base-background']};
-    height: 100vh;
+    
 
 `
