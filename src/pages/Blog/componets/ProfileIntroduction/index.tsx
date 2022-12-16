@@ -1,34 +1,47 @@
 import { ProfileIntroductionAvatar, ProfileIntroductionIntro, ProfileIntroductionIntroContent, ProfileIntroductionIntroFooter, ProfileIntroductionIntroHeader, ProfileIntroductionsContainer, ProfileIntroductionsContent } from "./ProfileIntroduction";
-import {ArrowSquareOut} from 'phosphor-react'
-import {FaGithub, FaBuilding, FaUserFriends} from 'react-icons/fa'
+import { ArrowSquareOut } from 'phosphor-react'
+import { FaGithub, FaBuilding, FaUserFriends } from 'react-icons/fa'
 import Avatar from '../../../../assets/Avatar.png'
 
-export function ProfileIntroduction(){
+
+export interface ProfileIntroductionProps {
+    avatar_url?: string
+    name?: string
+    html_url?: string
+    bio?: string
+    login?: string
+    company?: string | null
+    followers?: number
+}
+
+export function ProfileIntroduction(props: ProfileIntroductionProps) {
 
 
     return <>
         <ProfileIntroductionsContainer >
             <ProfileIntroductionsContent>
-                <ProfileIntroductionAvatar src={Avatar} alt="Avatar do github"/>
+                <ProfileIntroductionAvatar src={props.avatar_url} alt="Avatar do github" />
                 <ProfileIntroductionIntro >
-                    
+
                     <ProfileIntroductionIntroHeader>
-                        <span>Cameron Williamson</span>
-                        <a href="#">
-                            <label>github</label> 
+                        <span>{props.name}</span>
+
+                        <a href={props.html_url} target='_blank'>
+                            <label>github</label>
                             <ArrowSquareOut size={12} weight="bold" />
                         </a>
                     </ProfileIntroductionIntroHeader>
 
                     <ProfileIntroductionIntroContent>
-                        Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat pulvinar vel mass.
+                        {props.bio}
                     </ProfileIntroductionIntroContent>
 
                     <ProfileIntroductionIntroFooter>
-                        <div> <FaGithub />cameronwill</div>
-                        <div> <FaBuilding /> Rocketseat</div>
-                        <div> <FaUserFriends /> 32 seguidores</div>
+                        <div> <FaGithub />{props.login}</div>
+                        {props.company && <div> <FaBuilding /> {props.company}</div>}
+                        <div> <FaUserFriends /> {props.followers} seguidores</div>
                     </ProfileIntroductionIntroFooter>
+
                 </ProfileIntroductionIntro>
             </ProfileIntroductionsContent>
         </ProfileIntroductionsContainer>

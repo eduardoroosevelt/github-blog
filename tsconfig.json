@@ -19,6 +19,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": "./",
+    "rootDir": "src",
     "paths": {
       "@src/*": [
         "./src/*"
@@ -26,7 +28,7 @@
     }
   },
   "include": [
-    "src"
+    "./src"
   ],
   "references": [
     {

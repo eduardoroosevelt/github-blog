@@ -48,9 +48,12 @@ export const ProfileIntroductionIntroHeader = styled.header`
         align-items: center;
         padding: 0px;
         gap: 8px;
-        background-color: transparent;
-        border: none;
-        
+                
+        &:hover{
+            border-bottom: 1px solid ${(props) => props.theme['blue']};
+            transition: 0.5s border-bottom;
+        }
+
         label {
             
             font-family: 'Nunito';
@@ -61,16 +64,12 @@ export const ProfileIntroductionIntroHeader = styled.header`
             text-transform: uppercase;
             color: ${(props) => props.theme['blue']};
 
-            flex: none;
-            order: 1;
-            flex-grow: 0;
+
         }
 
         svg {
             color: ${(props) => props.theme['blue']};
-            flex: none;
-            order: 2;
-            flex-grow: 0;
+        
         }
     }
 `

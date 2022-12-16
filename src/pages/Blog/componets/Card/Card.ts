@@ -9,12 +9,18 @@ export const CardContainer = styled.div`
   max-width: 416px;
   max-height: 260px;
   display: flex;
-    flex-direction: column;
-    gap: 20px;
+  flex-direction: column;
+  gap: 20px;
+
+  &:hover{
+    border: 2px solid ${(props) => props.theme['base-label']};
+    cursor: pointer;
+  }
 `
 
 export const CardHeader = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
 
   h5{
@@ -33,6 +39,7 @@ export const CardHeader = styled.div`
     font-size: 14px;
     line-height: 160%;
     color: ${(props) => props.theme['base-span']};
+    min-width: 54px;
   }
 `
 export const CardContent = styled.div`
