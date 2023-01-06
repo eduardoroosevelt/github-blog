@@ -16,6 +16,10 @@ export const CardContainer = styled.div`
     border: 2px solid ${(props) => props.theme['base-label']};
     cursor: pointer;
   }
+
+  a{
+    text-decoration: none;
+  }
 `
 
 export const CardHeader = styled.div`

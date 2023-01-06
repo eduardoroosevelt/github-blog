@@ -1,5 +1,6 @@
 import { api } from '@src/config/Axios'
 import React, { useEffect, useState } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { BlogContainer, BlogContent, BlogListIssues, BlogSearchCabecalho, BlogSearchForm } from "./Blog"
 import { Card } from "./componets/Card"
 import { ProfileIntroduction, ProfileIntroductionProps } from "./componets/ProfileIntroduction"
@@ -17,6 +18,11 @@ interface PublicacoesProps {
 
 const REPOSITORIO_NAME = 'rocketseat-education/reactjs-github-blog-challenge'
 
+type Inputs = {
+    search: string,
+  };
+
+  
 export function Blog() {
 
     const [profile, setProfile] = useState<ProfileIntroductionProps>();
@@ -25,16 +31,24 @@ export function Blog() {
         items: []
     })
 
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+    
+    function buscarConteudo(conteudo:string = ""){
+        api.get<PublicacoesProps>(`search/issues?q=${conteudo} repo:${REPOSITORIO_NAME}`).then(res => {
+            setListaPublicacoes(res.data)
+        })
+    }
+
     useEffect(() => {
-        // api.get<ProfileIntroductionProps>(`users/diego3g`).then(res => {
-        //     const { avatar_url, bio, company, followers, html_url, login, name } = res.data
-        //     setProfile({ avatar_url, bio, company, followers, html_url, login, name })
-        // })
-        // api.get<PublicacoesProps>(`search/issues?q=repo:${REPOSITORIO_NAME}`).then(res => {
-        //     setListaPublicacoes(res.data)
-        // })
+        api.get<ProfileIntroductionProps>(`users/diego3g`).then(res => {
+            const { avatar_url, bio, company, followers, html_url, login, name } = res.data
+            setProfile({ avatar_url, bio, company, followers, html_url, login, name })
+        })
+        buscarConteudo()
     }, [])
 
+
+    const onSubmit: SubmitHandler<Inputs> = data =>buscarConteudo(data.search)
 
 
     return (
@@ -48,8 +62,12 @@ export function Blog() {
                     <span> {listaPublicacoes.total_count} publicações </span>
                 </BlogSearchCabecalho>
 
-                <BlogSearchForm >
-                    <input type="text" placeholder="Buscar conteúdo" />
+                <BlogSearchForm onSubmit={handleSubmit(onSubmit)}>
+                    <input 
+                        type="text" 
+                        placeholder="Buscar conteúdo"
+                        {...register("search")}
+                    />
                 </BlogSearchForm>
 
                 <BlogListIssues>
